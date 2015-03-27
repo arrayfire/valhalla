@@ -2,7 +2,6 @@
 #include <af/traits.hpp>
 #include "../../include/common.hpp"
 
-
 namespace vll {
 
     using namespace af;

@@ -20,7 +20,7 @@ namespace vll
     void bench_wrapper(const int start, const int end, const int step)
     {
         const int warmup_iter = 10;
-        const int bench_iter = 100;
+        const int bench_iter = 1000;
         std::cout << "Size\t\tTime(us)\t" << std::endl;
         for (int num = start; num < end; num += step) {
             generate<T>(num);
@@ -29,9 +29,18 @@ namespace vll
             system_clock::time_point start = system_clock::now();
             run<T>(bench_iter);
             system_clock::time_point end = system_clock::now();
-            std::cout << num << "\t\t" <<
-                std::chrono::duration_cast<std::chrono::microseconds>(end - start).count()
-                      << std::endl;
+            auto u_sec = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / bench_iter;
+
+            int repeat = 1;
+            while (u_sec < 100 && repeat < 10 ) {
+                start = system_clock::now();
+                run<T>(bench_iter);
+                end = system_clock::now();
+                u_sec += std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / bench_iter;
+                repeat++;
+            }
+
+            std::cout << num << "\t\t" << u_sec / repeat << std::endl;
         }
     }
 

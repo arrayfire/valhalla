@@ -20,6 +20,7 @@
 #
 
 #=============================================================================
+# From CMake 3.2
 # Copyright 2014 Matthaeus G. Chajdas
 #
 # Distributed under the OSI-approved BSD License (the "License");
@@ -28,9 +29,40 @@
 # This software is distributed WITHOUT ANY WARRANTY; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the License for more information.
+
+# CMake - Cross Platform Makefile Generator
+# Copyright 2000-2014 Kitware, Inc.
+# Copyright 2000-2011 Insight Software Consortium
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 
+# * Redistributions of source code must retain the above copyright
+# notice, this list of conditions and the following disclaimer.
+# 
+# * Redistributions in binary form must reproduce the above copyright
+# notice, this list of conditions and the following disclaimer in the
+# documentation and/or other materials provided with the distribution.
+# 
+# * Neither the names of Kitware, Inc., the Insight Software Consortium,
+# nor the names of their contributors may be used to endorse or promote
+# products derived from this software without specific prior written
+# permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #=============================================================================
-# (To distribute this file outside of CMake, substitute the full
-#  License text for the above reference.)
 
 function(_FIND_OPENCL_VERSION)
   include(CheckSymbolExists)
@@ -40,7 +72,6 @@ function(_FIND_OPENCL_VERSION)
   CMAKE_PUSH_CHECK_STATE()
   foreach(VERSION "2_0" "1_2" "1_1" "1_0")
     set(CMAKE_REQUIRED_INCLUDES "${OpenCL_INCLUDE_DIR}")
-
     if(APPLE)
       CHECK_SYMBOL_EXISTS(
         CL_VERSION_${VERSION}
@@ -72,10 +103,10 @@ find_path(OpenCL_INCLUDE_DIR
     CL/cl.h OpenCL/cl.h
   PATHS
     ENV "PROGRAMFILES(X86)"
-    ENV AMDAPPSDKROOT
-    ENV INTELOCLSDKROOT
     ENV NVSDKCOMPUTE_ROOT
     ENV CUDA_PATH
+	ENV AMDAPPSDKROOT
+    ENV INTELOCLSDKROOT
     ENV ATISTREAMSDKROOT
   PATH_SUFFIXES
     include
@@ -86,14 +117,14 @@ _FIND_OPENCL_VERSION()
 
 if(WIN32)
   if(CMAKE_SIZEOF_VOID_P EQUAL 4)
-    find_library(OpenCL_LIBRARY
+	find_library(OpenCL_LIBRARY
       NAMES OpenCL
       PATHS
         ENV "PROGRAMFILES(X86)"
-        ENV AMDAPPSDKROOT
-        ENV INTELOCLSDKROOT
         ENV CUDA_PATH
         ENV NVSDKCOMPUTE_ROOT
+		ENV AMDAPPSDKROOT
+        ENV INTELOCLSDKROOT
         ENV ATISTREAMSDKROOT
       PATH_SUFFIXES
         "AMD APP/lib/x86"
@@ -105,10 +136,10 @@ if(WIN32)
       NAMES OpenCL
       PATHS
         ENV "PROGRAMFILES(X86)"
-        ENV AMDAPPSDKROOT
-        ENV INTELOCLSDKROOT
         ENV CUDA_PATH
         ENV NVSDKCOMPUTE_ROOT
+		ENV AMDAPPSDKROOT
+        ENV INTELOCLSDKROOT
         ENV ATISTREAMSDKROOT
       PATH_SUFFIXES
         "AMD APP/lib/x86_64"
@@ -124,7 +155,7 @@ endif()
 set(OpenCL_LIBRARIES ${OpenCL_LIBRARY})
 set(OpenCL_INCLUDE_DIRS ${OpenCL_INCLUDE_DIR})
 
-include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
 find_package_handle_standard_args(
   OpenCL
   FOUND_VAR OpenCL_FOUND
@@ -134,3 +165,4 @@ find_package_handle_standard_args(
 mark_as_advanced(
   OpenCL_INCLUDE_DIR
   OpenCL_LIBRARY)
+

@@ -1,6 +1,6 @@
 #include <arrayfire.h>
 #include <af/traits.hpp>
-#include "../../include/common.hpp"
+#include <valhalla.hpp>
 
 namespace vll {
 

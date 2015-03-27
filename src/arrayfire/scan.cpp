@@ -1,8 +1,7 @@
 #include <cstdio>
 #include <arrayfire.h>
 #include <af/traits.hpp>
-#include "../../include/common.hpp"
-
+#include <valhalla.hpp>
 
 namespace vll {
 
@@ -14,6 +13,7 @@ namespace vll {
     void generate(const int num)
     {
         a = randu(num, (af::dtype)dtype_traits<T>::af_type);
+        af::sync();
     }
 
     template<typename T>

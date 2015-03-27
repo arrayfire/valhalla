@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <cstdio>
 #include <stdexcept>
 
 #if __cplusplus <= 199711L

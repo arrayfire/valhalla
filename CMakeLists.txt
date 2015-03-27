@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(VALHALLA)
 
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 option(BUILD_ArrayFire "Build the ArrayFire benchmark files" ON)
 option(BUILD_Thrust "Build the Thrust benchmark files" OFF)
 option(BUILD_BoostCompute "Build the Boost Compute benchmark files" OFF)

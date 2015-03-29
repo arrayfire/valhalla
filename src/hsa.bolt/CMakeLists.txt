@@ -1,0 +1,25 @@
+FIND_PACKAGE(Bolt REQUIRED)
+FIND_PACKAGE(OpenCL REQUIRED)
+FIND_PACKAGE(Boost 1.48 REQUIRED system)
+
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS} ${OpenCL_INCLUDE_DIRS} ${BOLT_INCLUDE_DIRS})
+
+# Collect the source
+FILE(GLOB FILES "*.cpp")
+
+FOREACH(FILE ${FILES})
+    GET_FILENAME_COMPONENT(FUNC ${FILE} NAME_WE)
+    GET_FILENAME_COMPONENT(FULL_DIR_NAME ${FILE} PATH)
+    GET_FILENAME_COMPONENT(DIR_NAME ${FULL_DIR_NAME} NAME)
+
+    ADD_EXECUTABLE(bolt_${FUNC} ${FILE})
+
+    TARGET_LINK_LIBRARIES(bolt_${FUNC}
+                          ${OpenCL_LIBRARY}
+                          ${Boost_LIBRARIES}
+                          ${BOLT_LIBRARIES})
+
+    SET_TARGET_PROPERTIES(bolt_${FUNC}
+                          PROPERTIES
+                          OUTPUT_NAME ${FUNC})
+ENDFOREACH()

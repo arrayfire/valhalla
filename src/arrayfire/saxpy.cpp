@@ -24,6 +24,7 @@ namespace vll {
             y = a * x + y;
             y.eval();
         }
+        af::sync();
     }
 }
 

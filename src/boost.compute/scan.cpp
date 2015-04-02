@@ -44,8 +44,9 @@ namespace vll {
     {
         try {
             scan<T>(num, true, 0);
-        } catch(...) {
-            // do nothing
+        } catch(compute::opencl_error &err) {
+            std::cout << err.what() << std::endl;
+            throw;
         }
     }
 
@@ -54,8 +55,9 @@ namespace vll {
     {
         try {
             scan<T>(-1, false, iter);
-        } catch(...) {
-            // do nothing
+        } catch(compute::opencl_error &err) {
+            std::cout << err.what() << std::endl;
+            throw;
         }
     }
 }

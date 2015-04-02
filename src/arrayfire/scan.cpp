@@ -12,17 +12,27 @@ namespace vll {
     template<typename T>
     void generate(const int num)
     {
-        a = randu(num, (af::dtype)dtype_traits<T>::af_type);
-        af::sync();
+        try {
+            a = randu(num, (af::dtype)dtype_traits<T>::af_type);
+            af::sync();
+        } catch(const af::exception &ex) {
+            std::cout << ex.what() << std::endl;
+            throw;
+        }
     }
 
     template<typename T>
     void run(const int iter)
     {
-        for (int i = 0; i < iter; i++) {
-            array b = accum(a);
+        try {
+            for (int i = 0; i < iter; i++) {
+                array b = accum(a);
+            }
+            af::sync();
+        } catch(const af::exception &ex) {
+            std::cout << ex.what() << std::endl;
+            throw;
         }
-        af::sync();
     }
 }
 

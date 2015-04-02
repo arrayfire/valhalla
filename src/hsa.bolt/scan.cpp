@@ -10,7 +10,7 @@ namespace Bolt = bolt::cl;
 namespace vll {
 
     template<typename T>
-    void reduce(const int num, bool gen = true, int iter = 0)
+    void scan(const int num, bool gen = true, int iter = 0)
     {
 
         static Bolt::device_vector<T> d_in ;
@@ -38,11 +38,10 @@ namespace vll {
     void generate(const int num)
     {
         try {
-            reduce<T>(num, true, 0);
+            scan<T>(num, true, 0);
         } catch(cl::Error &err) {
             std::cout << err.err() << " " << err.what() << std::endl;
-        } catch(...) {
-            // do nothing
+            throw;
         }
     }
 
@@ -50,11 +49,10 @@ namespace vll {
     void run(const int iter)
     {
         try {
-            reduce<T>(-1, false, iter);
+            scan<T>(-1, false, iter);
         } catch(cl::Error &err) {
             std::cout << err.err() << " " << err.what() << std::endl;
-        } catch(...) {
-            // do nothing
+            throw;
         }
     }
 }

@@ -32,8 +32,8 @@ namespace vll {
     {
         try {
             scan<T>(num, true, 0);
-        } catch(...) {
-            // do nothing
+        } catch(const thrust::system_error &ex) {
+            std::cout << ex.what() << std::endl;
         }
     }
 
@@ -42,8 +42,8 @@ namespace vll {
     {
         try {
             scan<T>(-1, false, iter);
-        } catch(...) {
-            // do nothing
+        } catch(const thrust::system_error &ex) {
+            std::cout << ex.what() << std::endl;
         }
     }
 }

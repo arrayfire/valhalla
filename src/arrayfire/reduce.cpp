@@ -11,14 +11,24 @@ namespace vll {
     template<typename T>
     void generate(const int num)
     {
-        a = randu(num, (af::dtype)dtype_traits<T>::af_type);
+        try {
+            a = randu(num, (af::dtype)dtype_traits<T>::af_type);
+        } catch(const af::exception &ex) {
+            std::cout << ex.what() << std::endl;
+            throw;
+        }
     }
 
     template<typename T>
     void run(const int iter)
     {
-        for (int i = 0; i < iter; i++) {
-            T res = sum<T>(a);
+        try {
+            for (int i = 0; i < iter; i++) {
+                T res = sum<T>(a);
+            }
+        } catch(const af::exception &ex) {
+            std::cout << ex.what() << std::endl;
+            throw;
         }
     }
 }

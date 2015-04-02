@@ -11,7 +11,7 @@ namespace compute = boost::compute;
 namespace vll {
 
     template<typename T>
-    void reduce(const int num, bool gen = true, int iter = 0)
+    void saxpy(const int num, bool gen = true, int iter = 0)
     {
         static compute::device gpu;
         static compute::context context;
@@ -57,9 +57,10 @@ namespace vll {
     void generate(const int num)
     {
         try {
-            reduce<T>(num, true, 0);
-        } catch(...) {
-            // do nothing
+            saxpy<T>(num, true, 0);
+        } catch(compute::opencl_error &err) {
+            std::cout << err.what() << std::endl;
+            throw;
         }
     }
 
@@ -67,9 +68,10 @@ namespace vll {
     void run(const int iter)
     {
         try {
-            reduce<T>(-1, false, iter);
-        } catch(...) {
-            // do nothing
+            saxpy<T>(-1, false, iter);
+        } catch(compute::opencl_error &err) {
+            std::cout << err.what() << std::endl;
+            throw;
         }
     }
 }

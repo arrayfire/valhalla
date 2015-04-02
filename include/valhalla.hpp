@@ -55,16 +55,20 @@ namespace vll
             throw std::runtime_error("Incorrect number of arguments");
         }
 
-        const int start = atoi(args[2]);
-        const int end  = atoi(args[3]);
-        const int step = atoi(args[4]);
+        try {
+            const int start = atoi(args[2]);
+            const int end  = atoi(args[3]);
+            const int step = atoi(args[4]);
 
-        if (args[1][0] == 'f') {
-            bench_wrapper<float>(start, end, step);
-        } else if (args[1][0] == 'd') {
-            bench_wrapper<double>(start, end, step);
-        } else {
-            throw std::runtime_error("Data type not supported");
+            if (args[1][0] == 'f') {
+                bench_wrapper<float>(start, end, step);
+            } else if (args[1][0] == 'd') {
+                bench_wrapper<double>(start, end, step);
+            } else {
+                throw std::runtime_error("Data type not supported");
+            }
+        } catch(...) {
+            std::cout << "Something went wrong" << std::endl;
         }
     }
 }

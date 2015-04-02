@@ -38,8 +38,7 @@ namespace vll {
             reduce<T>(num, true, 0);
         } catch(cl::Error &err) {
             std::cout << err.err() << " " << err.what() << std::endl;
-        } catch(...) {
-            // do nothing
+            throw;
         }
     }
 
@@ -50,8 +49,7 @@ namespace vll {
             reduce<T>(-1, false, iter);
         } catch(cl::Error &err) {
             std::cout << err.err() << " " << err.what() << std::endl;
-        } catch(...) {
-            // do nothing
+            throw;
         }
     }
 }

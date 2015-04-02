@@ -18,6 +18,7 @@ namespace vll {
         static compute::command_queue queue;
         static compute::vector<T> x;
         static compute::vector<T> y;
+        static compute::vector<T> res;
         static T alpha = 3.5;
 
         using compute::lambda::_1;
@@ -38,12 +39,13 @@ namespace vll {
             std::generate(h_y.begin(), h_y.end(), rand);
             compute::copy(h_y.begin(), h_y.end(), y.begin(), queue);
 
+            res = compute::vector<T>(num, context);
             queue.finish();
         }
 
         for (int i = 0; i < iter; i++) {
             compute::transform(x.begin(), x.end(),
-                               y.begin(), y.end(),
+                               y.begin(), res.begin(),
                                alpha * _1 + _2,
                                queue);
         }

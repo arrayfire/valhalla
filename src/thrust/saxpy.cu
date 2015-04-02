@@ -25,6 +25,7 @@ namespace vll {
     {
         static thrust::device_vector<T> x;
         static thrust::device_vector<T> y;
+        static thrust::device_vector<T> res;
         static T a = 3.5;
 
         if (gen) {
@@ -36,12 +37,13 @@ namespace vll {
 
             x = h_x;
             y = h_y;
+            res = thrust::device_vector<T>(num);
             cudaDeviceSynchronize();
         }
 
         for (int i = 0; i < iter; i++) {
             thrust::transform(x.begin(), x.end(),
-                              y.begin(), y.end(),
+                              y.begin(), res.begin(),
                               saxpy_functor<T>(a));
         }
         cudaDeviceSynchronize();

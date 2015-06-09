@@ -95,8 +95,10 @@ if( NOT find_CL EQUAL -1 )
     find_library( BOLT_LIBRARY_STATIC_RELEASE
         NAMES ${BOLT_LIBNAME_BASE}.${LIB_EXT}
         HINTS
-            ${BOLT_ROOT}
-            ENV BOLT_ROOT
+            ${BOLT_ROOT}/lib
+            ${BOLT_ROOT}/lib64
+            $ENV{BOLT_ROOT}/lib
+            $ENV{BOLT_ROOT}/lib64
         DOC "BOLT static library path"
         PATH_SUFFIXES lib
     )
@@ -107,12 +109,12 @@ if( NOT find_CL EQUAL -1 )
         NAMES ${BOLT_LIBNAME_BASE}.debug.${LIB_EXT}
         HINTS
             ${BOLT_ROOT}
-            ENV BOLT_ROOT
+            $ENV{BOLT_ROOT}
         DOC "BOLT static library path"
-        PATH_SUFFIXES lib
+        PATH_SUFFIXES lib lib64
     )
     mark_as_advanced( BOLT_LIBRARY_STATIC_DEBUG )
-    
+
     if( BOLT_LIBRARY_STATIC_RELEASE )
         set( BOLT_LIBRARY_STATIC optimized ${BOLT_LIBRARY_STATIC_RELEASE} )
     else( )
@@ -125,12 +127,12 @@ if( NOT find_CL EQUAL -1 )
     else( )
         message( "${BOLT_LIBNAME_BASE}.debug.${LIB_EXT}: Debug static bolt library not found" )
     endif( )
-    
+
     find_path( BOLT_INCLUDE_DIRS
         NAMES bolt/cl/bolt.h
         HINTS
             ${BOLT_ROOT}
-            ENV BOLT_ROOT
+            $ENV{BOLT_ROOT}
         DOC "BOLT header file path"
         PATH_SUFFIXES include
     )

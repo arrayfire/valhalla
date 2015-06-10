@@ -56,7 +56,6 @@ namespace vll {
             saxpy<T>(num, true, 0);
         } catch(thrust::system::system_error &err) {
             std::cout <<  err.what() << std::endl;
-            throw;
         }
     }
 
@@ -67,7 +66,6 @@ namespace vll {
             saxpy<T>(-1, false, iter);
         } catch(thrust::system::system_error &err) {
             std::cout <<  err.what() << std::endl;
-            throw;
         }
     }
 }

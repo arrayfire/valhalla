@@ -32,7 +32,6 @@ namespace vll {
             reduce<T>(num, true, 0);
         } catch(const thrust::system_error &ex) {
             std::cout << ex.what() << std::endl;
-            throw;
         }
     }
 
@@ -43,7 +42,6 @@ namespace vll {
             reduce<T>(-1, false, iter);
         } catch(const thrust::system_error &ex) {
             std::cout << ex.what() << std::endl;
-            throw;
         }
     }
 }

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 project(VALHALLA)
 
 INCLUDE (FindPackageHandleStandardArgs)
@@ -11,7 +11,9 @@ option(BUILD_HSABolt "Build the HSA Bolt files" OFF)
 option(BUILD_TBB "Build the TBB files" OFF)
 
 
-ADD_DEFINITIONS("-std=c++11")
+SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD_REQUIRED)
+
 INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 if (${BUILD_ArrayFire})
